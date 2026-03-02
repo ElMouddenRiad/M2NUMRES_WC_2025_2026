@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Audio Player - Full Feature Demo</title>
+    <script src="./components/audioplayer.js" type="module"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f0f1e 0%, #1a1f3a 100%);
+            color: #eaeaea;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1500px;
+            margin: 0 auto;
+        }
+
+        my-audio-player {
+            display: block;
+            width: 100%;
+            max-width: none;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(0, 200, 200, 0.3);
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #9ad5ff, #7cffb2);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            opacity: 0.8;
+            color: #aaa;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 200, 200, 0.2);
+            border-radius: 12px;
+            padding: 16px;
+            backdrop-filter: blur(10px);
+        }
+
+        .feature-card h3 {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #9ad5ff;
+            margin-bottom: 8px;
+        }
+
+        .feature-card ul {
+            list-style: none;
+            font-size: 12px;
+            line-height: 1.6;
+            opacity: 0.85;
+        }
+
+        .feature-card li::before {
+            content: "✓ ";
+            color: #7cffb2;
+            font-weight: bold;
+            margin-right: 6px;
+        }
+
+        .demo-section {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(0, 200, 200, 0.15);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 30px;
+        }
+
+        .demo-section h2 {
+            font-size: 18px;
+            margin-bottom: 12px;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .code-block {
+            background: rgba(0, 0, 0, 0.3);
+            border-left: 3px solid #9ad5ff;
+            border-radius: 6px;
+            padding: 12px;
+            font-family: "Monaco", "Menlo", monospace;
+            font-size: 11px;
+            color: #7cffb2;
+            overflow-x: auto;
+            line-height: 1.4;
+            margin-top: 12px;
+        }
+
+        footer {
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            font-size: 12px;
+            opacity: 0.7;
+        }
+
+        .highlight {
+            color: #ff6b6b;
+            font-weight: 600;
+        }
+
+        a {
+            color: #9ad5ff;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(154, 213, 255, 0.3);
+        }
+
+        a:hover {
+            border-bottom-color: #9ad5ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎵 Advanced Web Audio Player</h1>
+            <p class="subtitle">Complete Web Component with EQ • Visualizer • Playlist Management</p>
+        </header>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3>🎚️ Equalizer</h3>
+                <ul>
+                    <li>10-band parametric EQ</li>
+                    <li>4 presets (Flat, Bass, Vocal, Phone)</li>
+                    <li>Bypass toggle</li>
+                    <li>Real-time filter adjustment</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h3>📊 Visualization</h3>
+                <ul>
+                    <li>Spectrum analyzer (128 bars)</li>
+                    <li>Waveform display</li>
+                    <li>Real-time rendering at 60 FPS</li>
+                    <li>Toggle start/stop</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h3>📋 Playlist</h3>
+                <ul>
+                    <li>Add/remove tracks</li>
+                    <li>Drag-to-reorder support</li>
+                    <li>Duration display</li>
+                    <li>Auto-advance</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h3>⏯️ Playback</h3>
+                <ul>
+                    <li>Play/Pause controls</li>
+                    <li>Next/Previous buttons</li>
+                    <li>Shuffle mode</li>
+                    <li>Loop (All/One)</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h3>🔊 Audio Control</h3>
+                <ul>
+                    <li>Volume slider & knob</li>
+                    <li>Stereo balance</li>
+                    <li>Real-time volume meter</li>
+                    <li>Gain adjustments</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h3>⏱️ Playback Info</h3>
+                <ul>
+                    <li>Current time display</li>
+                    <li>Total duration</li>
+                    <li>Custom progress bar</li>
+                    <li>Buffer visualization</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2>📻 Live Player Demo</h2>
+            <p style="margin-bottom: 16px; opacity: 0.85; font-size: 13px;">
+                Click Play to start. Try the EQ presets, toggle shuffle and loop, drag tracks to reorder, or use the visualizer modes.
+            </p>
+            
+            <my-audio-player id="demo-player" data-tracks='[
+                {
+                    "src": "./assets/Kalimba.mp3",
+                    "title": "Kalimba",
+                    "duration": 119
+                },
+                {
+                    "src": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+                    "title": "SoundHelix Demo Track",
+                    "duration": 360
+                }
+            ]'></my-audio-player>
+        </div>
+
+        <div class="demo-section">
+            <h2>💻 Usage Examples</h2>
+            
+            <h3 style="margin-top: 20px; margin-bottom: 10px; font-size: 14px;">Basic Setup</h3>
+            <div class="code-block">
+&lt;my-audio-player data-tracks='[
+  {
+    "src": "./audio.mp3",
+    "title": "Song Name",
+    "duration": 240
+  }
+]'&gt;&lt;/my-audio-player&gt;
+            </div>
+
+            <h3 style="margin-top: 20px; margin-bottom: 10px; font-size: 14px;">Accessing Components</h3>
+            <div class="code-block">
+const player = document.querySelector('my-audio-player');
+const eq = player.shadowRoot.querySelector('#eq');
+const playlist = player.shadowRoot.querySelector('#playlist');
+const viz = player.shadowRoot.querySelector('#viz');
+
+// Control playback
+player.playNext();
+player.toggleShuffle();
+player.toggleLoop();
+
+// EQ operations
+eq.applyPreset('Bass Boost');
+eq.toggleBypass();
+            </div>
+
+            <h3 style="margin-top: 20px; margin-bottom: 10px; font-size: 14px;">Event Listening</h3>
+            <div class="code-block">
+// Listen for playlist changes
+playlist.addEventListener('play-track', (e) => {
+  console.log('Playing track:', e.detail.index);
+});
+
+// Listen for EQ changes
+eq.addEventListener('eq-change', (e) => {
+  console.log(`Band ${e.detail.index}: ${e.detail.gain}dB`);
+});
+
+// Standard audio events
+const audio = player.shadowRoot.querySelector('#myplayer');
+audio.addEventListener('play', () => {
+  viz.start();
+});
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2>🎛️ Component Architecture</h2>
+            
+            <p style="margin-bottom: 16px; opacity: 0.85; font-size: 13px;">
+                The player uses a clean separation of concerns, with each component managing its own state and UI:
+            </p>
+
+            <div class="code-block">
+my-audio-player (Main)
+  ├── my-playlist
+  │   ├── Track list with drag-drop
+  │   ├── Delete buttons
+  │   └── Duration display
+  ├── my-equalizer
+  │   ├── 10 BiquadFilters
+  │   ├── Preset selector
+  │   ├── 10 gain sliders
+  │   └── Bypass toggle
+  └── my-visualizer
+      ├── Canvas rendering
+      ├── Spectrum/Waveform modes
+      └── Real-time animation
+
+Web Audio Graph inside player:
+  &lt;audio&gt; → Equalizer → GainNode → Panner → Analyser → Destination
+            </div>
+
+            <h3 style="margin-top: 20px; margin-bottom: 10px; font-size: 14px;">Key Features by Component</h3>
+            <ul style="opacity: 0.85; margin-left: 20px;">
+                <li><span class="highlight">my-audio-player:</span> Orchestration, audio graph, controls UI</li>
+                <li><span class="highlight">my-equalizer:</span> 10-band processing, presets, bypass</li>
+                <li><span class="highlight">my-visualizer:</span> Real-time spectrum/waveform rendering</li>
+                <li><span class="highlight">my-playlist:</span> Track management, drag-reorder, auto-advance</li>
+            </ul>
+        </div>
+
+        <div class="demo-section">
+            <h2>📚 Documentation</h2>
+            
+            <p style="margin-bottom: 12px; opacity: 0.85; font-size: 13px;">
+                For complete API reference with all methods, properties, and events:
+            </p>
+
+            <ul style="margin-left: 20px; opacity: 0.85;">
+                <li><strong>API_DOCUMENTATION.md</strong> - Full technical reference for all components</li>
+                <li><strong>README.md</strong> - Installation, usage guide, and troubleshooting</li>
+            </ul>
+
+            <h3 style="margin-top: 20px; margin-bottom: 10px; font-size: 14px;">Quick Reference</h3>
+            <div class="code-block">
+// Main player methods
+player.playNext()
+player.playPrevious()
+player.toggleShuffle()
+player.toggleLoop()
+player.formatTime(seconds)
+
+// Equalizer methods
+eq.setAudioContext(ctx)
+eq.setInput(sourceNode)
+eq.getOutput()
+eq.applyPreset(name)
+eq.toggleBypass()
+
+// Visualizer methods
+viz.setAnalyser(analyserNode)
+viz.start()
+viz.stop()
+
+// Playlist methods
+playlist.setTracks(array)
+playlist.play(index)
+playlist.highlight(index)
+playlist.removeTrack(index)
+playlist.nextIndex()
+playlist.previousIndex()
+playlist.getTracks()
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2>🚀 Advanced Features</h2>
+            
+            <h3 style="margin-top: 15px; margin-bottom: 10px; font-size: 14px;">🔀 Shuffle Mode</h3>
+            <p style="opacity: 0.85; font-size: 12px;">
+                Randomizes track order using Fisher-Yates algorithm. Auto-generates shuffled index array on toggle.
+            </p>
+
+            <h3 style="margin-top: 15px; margin-bottom: 10px; font-size: 14px;">🔁 Loop Modes</h3>
+            <ul style="margin-left: 20px; opacity: 0.85; font-size: 12px;">
+                <li><strong>Off:</strong> Play all tracks, stop at end</li>
+                <li><strong>Loop All:</strong> Restart playlist after last track</li>
+                <li><strong>Loop One:</strong> Repeat current track infinitely</li>
+            </ul>
+
+            <h3 style="margin-top: 15px; margin-bottom: 10px; font-size: 14px;">🎛️ Web Audio Chain</h3>
+            <p style="opacity: 0.85; font-size: 12px;">
+                Properly constructed audio graph with single pass through processing nodes. Supports real-time filter adjustments without artifacts.
+            </p>
+
+            <h3 style="margin-top: 15px; margin-bottom: 10px; font-size: 14px;">📱 Responsive Design</h3>
+            <p style="opacity: 0.85; font-size: 12px;">
+                Components adapt to different viewport sizes. Playlist, controls, and visualizer stack vertically on mobile.
+            </p>
+        </div>
+
+        <div class="demo-section">
+            <h2>⌨️ Keyboard Shortcuts (Future Enhancement)</h2>
+            
+            <p style="margin-bottom: 12px; opacity: 0.85; font-size: 13px;">
+                Planned for v1.1:
+            </p>
+
+            <div class="code-block">
+Space       - Play/Pause
+→ Arrow     - Next track  
+← Arrow     - Previous track
+↑ Arrow     - Volume up
+↓ Arrow     - Volume down
+Shift+→     - Seek forward 10s
+Shift+←     - Seek backward 10s
+S           - Toggle Shuffle
+L           - Toggle Loop
+E           - Toggle EQ
+V           - Toggle Visualizer
+            </div>
+        </div>
+
+        <footer>
+            <p>M2 NUMRES Web Components Course 2025-2026</p>
+            <p style="margin-top: 8px;">
+                <a href="https://github.com/micbuffa/M2NUMRES_WC_2025_2026">View on GitHub</a> • 
+                <a href="./API_DOCUMENTATION.md">Full API Docs</a> • 
+                <a href="./README.md">README</a>
+            </p>
+        </footer>
+    </div>
+
+    <script type="module">
+        // Example: Log all interactions
+        const player = document.getElementById('demo-player');
+        
+        player.addEventListener('play', () => {
+            console.log('Audio playing...');
+        });
+
+        player.addEventListener('pause', () => {
+            console.log('Audio paused');
+        });
+
+        // Access nested components for advanced control
+        setTimeout(() => {
+            const playlist = player.shadowRoot.querySelector('#playlist');
+            const eq = player.shadowRoot.querySelector('#eq');
+            
+            console.log('Player ready. Tracks available:', playlist.getTracks().length);
+        }, 500);
+    </script>
+</body>
+</html>

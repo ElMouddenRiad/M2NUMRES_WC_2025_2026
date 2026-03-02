@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Isolated Visualizer Test</title>
+  <script type="module" src="./components/myvisualizer.js"></script>
+  <style>
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      background: #101015;
+      color: #fff;
+      font-family: system-ui, Arial, sans-serif;
+    }
+    body {
+      display: grid;
+      grid-template-rows: auto auto 1fr;
+      gap: 10px;
+      padding: 16px;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+    my-visualizer {
+      display: block;
+      width: min(1000px, 100%);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 10px;
+      padding: 10px;
+      box-sizing: border-box;
+      background: rgba(255,255,255,0.03);
+    }
+  </style>
+</head>
+<body>
+  <h1>Standalone visualizer demo</h1>
+  <p>Click once to initialize audio, then use Start/Stop inside the component.</p>
+  <my-visualizer id="viz"></my-visualizer>
+
+  <script>
+    document.body.addEventListener('click', async () => {
+      const viz = document.getElementById('viz');
+      if (!viz || viz.__initialized) return;
+      viz.__initialized = true;
+
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const osc = ctx.createOscillator();
+      osc.type = 'sawtooth';
+      osc.frequency.value = 220;
+
+      const gain = ctx.createGain();
+      gain.gain.value = 0.03;
+
+      const analyser = ctx.createAnalyser();
+      analyser.fftSize = 2048;
+
+      osc.connect(gain);
+      gain.connect(analyser);
+      analyser.connect(ctx.destination);
+
+      viz.setAnalyser(analyser);
+      osc.start();
+      viz.start();
+    }, { once: true });
+  </script>
+</body>
+</html>

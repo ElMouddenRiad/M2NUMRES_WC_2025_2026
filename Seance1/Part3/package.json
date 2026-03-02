@@ -1,0 +1,22 @@
+{
+  "name": "audio-player-web-components",
+  "version": "1.0.0",
+  "description": "Advanced Web Audio Player using W3C Web Components",
+  "author": "M2 NUMRES Student",
+  "license": "MIT",
+  "scripts": {
+    "serve": "npx http-server . -p 8000 -c-1"
+  },
+  "keywords": [
+    "web-components",
+    "web-audio",
+    "custom-elements",
+    "shadow-dom",
+    "audio-player"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/micbuffa/M2NUMRES_WC_2025_2026.git"
+  },
+  "homepage": "https://github.com/micbuffa/M2NUMRES_WC_2025_2026"
+}

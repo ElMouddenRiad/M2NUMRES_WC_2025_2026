@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Isolated Playlist Test</title>
+  <script type="module" src="./components/playlist.js"></script>
+  <style>
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      background: #111;
+      color: #fff;
+      font-family: system-ui, Arial, sans-serif;
+    }
+    body {
+      display: grid;
+      grid-template-rows: auto auto 1fr;
+      gap: 10px;
+      padding: 16px;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+    my-playlist {
+      display: block;
+      width: min(560px, 100%);
+      height: calc(100vh - 170px);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 10px;
+      padding: 8px;
+      box-sizing: border-box;
+      background: rgba(255,255,255,0.03);
+    }
+    #log {
+      font-size: 12px;
+      opacity: 0.85;
+    }
+  </style>
+</head>
+<body>
+  <h1>Standalone playlist demo</h1>
+  <div id="log">Actions: click track, drag/drop reorder, Delete to remove.</div>
+  <my-playlist id="playlist"></my-playlist>
+
+  <script>
+    const playlist = document.getElementById('playlist');
+    const log = document.getElementById('log');
+
+    playlist.setTracks([
+      { src: './assets/Kalimba.mp3', title: 'Kalimba', duration: 119 },
+      { src: './assets/Boney M. - Sunny (Official Audio).mp3', title: 'Boney M. - Sunny' },
+      { src: './assets/Chic ~ I Want Your Love 1978 Disco Purrfection Version.mp3', title: 'Chic - I Want Your Love' },
+      { src: './assets/Dire Straits - Tunnel Of Love.mp3', title: 'Dire Straits - Tunnel Of Love' },
+      { src: './assets/Fat Larry s Band - Act Like You Know.mp3', title: 'Fat Larry s Band - Act Like You Know' },
+      { src: './assets/Natural Mystic (1977) - Bob Marley The Wailers.mp3', title: 'Bob Marley - Natural Mystic' },
+      { src: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3', title: 'Demo SoundHelix' }
+    ]);
+
+    playlist.addEventListener('play-track', (e) => {
+      log.textContent = `play-track: index ${e.detail.index}`;
+    });
+
+    playlist.addEventListener('playlist-changed', (e) => {
+      log.textContent = `playlist-changed: ${JSON.stringify(e.detail)}`;
+    });
+  </script>
+</body>
+</html>

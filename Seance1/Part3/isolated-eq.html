@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Isolated Equalizer Test</title>
+    <script type="module" src="./components/myequalizer.js"></script>
+    <style>
+      body { background:#111; color:#fff; font-family:system-ui, Arial; padding:20px; }
+      my-equalizer { display:block; margin:0 auto; width:80%; }
+    </style>
+</head>
+<body>
+    <h1>Standalone equalizer demo</h1>
+    <p>This page loads only <code>my-equalizer</code> and injects an AudioContext manually.</p>
+    <my-equalizer id="eq"></my-equalizer>
+
+    <script>
+    document.body.addEventListener('click', async () => {
+      const eq = document.getElementById('eq');
+      if(!eq) return;
+      if(eq.audioContext) return;
+      const ctx = new (window.AudioContext||window.webkitAudioContext)();
+      eq.setAudioContext(ctx);
+      const osc = ctx.createOscillator();
+      osc.type = 'sine';
+      osc.frequency.value = 220;
+      osc.start();
+      eq.setInput(osc);
+      const out = eq.getOutput();
+      out.connect(ctx.destination);
+    }, { once:true });
+    </script>
+</body>
+</html>

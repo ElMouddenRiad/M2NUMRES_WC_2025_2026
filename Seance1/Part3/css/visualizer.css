@@ -1,0 +1,6 @@
+:host{ display:block; }
+.top{ display:flex; justify-content:space-between; align-items:center; gap:6px; margin-bottom:4px; }
+canvas{ width:100%; height:150px; border-radius:8px; background: rgba(0,0,0,0.35); display:block; border:1px solid rgba(255,255,255,0.06);} 
+
+:host([compact]) .top{ gap:4px; margin-bottom:2px; }
+:host([compact]) canvas{ height:110px; }

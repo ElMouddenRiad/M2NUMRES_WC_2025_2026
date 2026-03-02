@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html, body {
+        width: 100%;
+        height: 100%;
+        background: #0a0a0f;
+      }
+      body {
+        display: flex;
+        align-items: stretch;
+        justify-content: center;
+        padding: 6px;
+        overflow: hidden;
+      }
+    </style>
+    <script src="./components/audioplayer.js?v=1" type="module"></script>
+    <title>Test web component lecteur audio</title>
+</head>
+<body>
+    <my-audio-player layout="fixed" data-tracks='[
+      {"src":"./assets/Kalimba.mp3","title":"Kalimba"},
+      {"src":"./assets/Boney M. - Sunny (Official Audio).mp3","title":"Boney M. - Sunny"},
+      {"src":"./assets/Chic ~ I Want Your Love 1978 Disco Purrfection Version.mp3","title":"Chic - I Want Your Love"},
+      {"src":"./assets/Dire Straits - Tunnel Of Love.mp3","title":"Dire Straits - Tunnel Of Love"},
+      {"src":"./assets/Fat Larry s Band - Act Like You Know.mp3","title":"Fat Larry s Band - Act Like You Know"},
+      {"src":"./assets/Natural Mystic (1977) - Bob Marley The Wailers.mp3","title":"Bob Marley - Natural Mystic"},
+      {"src":"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3","title":"Demo SoundHelix"}
+    ]'></my-audio-player>
+    
+</body>
+</html>
